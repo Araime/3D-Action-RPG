@@ -1,5 +1,12 @@
 # Skeleton Journey.
 Бродилка по подземелью, где вы в роли скелета сражаетесь с монстрами.
+Проект собран по гайдам канала [Coding Quest](https://www.youtube.com/@CodingQuests).
+
+
+
+https://github.com/Araime/3D-Action-RPG/assets/82653875/98caada8-57d2-45c2-9000-982ae48b5b3c
+
+
 
 # Реализовано:
 
