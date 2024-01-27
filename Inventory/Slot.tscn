@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://db35vncgcx2f7"]
+
+[ext_resource type="Theme" uid="uid://dk4iedv5sh2gp" path="res://Inventory/GUI/Slot.tres" id="1_kn1jl"]
+[ext_resource type="Script" path="res://Inventory/Slot.gd" id="1_lnor7"]
+[ext_resource type="Texture2D" uid="uid://bro5cd7juelwo" path="res://Inventory/Icons/Iron_Shield.png" id="2_bmfjm"]
+
+[node name="Slot" type="Panel"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+theme = ExtResource("1_kn1jl")
+script = ExtResource("1_lnor7")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("2_bmfjm")
+
+[node name="Count" type="Label" parent="."]
+process_mode = 3
+layout_mode = 0
+offset_left = 42.0
+offset_top = 41.0
+offset_right = 62.0
+offset_bottom = 66.0
+theme_override_font_sizes/font_size = 15
+text = "01
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

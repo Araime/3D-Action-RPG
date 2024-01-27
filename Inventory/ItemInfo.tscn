@@ -1,0 +1,136 @@
+[gd_scene load_steps=8 format=3 uid="uid://dllo870n5y883"]
+
+[ext_resource type="Script" path="res://Inventory/ItemInfo.gd" id="1_0q1w2"]
+[ext_resource type="Texture2D" uid="uid://bro5cd7juelwo" path="res://Inventory/Icons/Iron_Shield.png" id="2_56qd0"]
+[ext_resource type="Theme" uid="uid://dfgnx6so8jd63" path="res://Inventory/GUI/BG.tres" id="2_noytc"]
+
+[sub_resource type="Animation" id="Animation_l1wld"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 650)]
+}
+
+[sub_resource type="Animation" id="Animation_xmysd"]
+resource_name = "TransIn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 650), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v7ryl"]
+resource_name = "TransOut"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 650)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0fhmq"]
+_data = {
+"RESET": SubResource("Animation_l1wld"),
+"TransIn": SubResource("Animation_xmysd"),
+"TransOut": SubResource("Animation_v7ryl")
+}
+
+[node name="ItemInfo" type="CanvasLayer"]
+process_mode = 3
+offset = Vector2(0, 650)
+transform = Transform2D(1, 0, 0, 1, 0, 650)
+script = ExtResource("1_0q1w2")
+
+[node name="BG" type="Panel" parent="."]
+offset_left = 480.0
+offset_top = 166.0
+offset_right = 800.0
+offset_bottom = 558.0
+theme = ExtResource("2_noytc")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(640, 318)
+scale = Vector2(5.96875, 6.03125)
+texture = ExtResource("2_56qd0")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0fhmq")
+}
+
+[node name="Title" type="Label" parent="."]
+offset_left = 520.0
+offset_top = 174.0
+offset_right = 760.0
+offset_bottom = 227.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 30
+text = "ItemName"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="."]
+offset_left = 528.0
+offset_top = 422.0
+offset_right = 752.0
+offset_bottom = 494.0
+text = "This is a description of our item"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Close" type="Button" parent="."]
+offset_left = 664.0
+offset_top = 502.0
+offset_right = 752.0
+offset_bottom = 548.0
+theme = ExtResource("2_noytc")
+theme_override_font_sizes/font_size = 20
+text = "Close"
+
+[node name="Use" type="Button" parent="."]
+offset_left = 528.0
+offset_top = 502.0
+offset_right = 616.0
+offset_bottom = 550.0
+theme = ExtResource("2_noytc")
+theme_override_font_sizes/font_size = 20
+text = "Use"
+
+[node name="Unequip" type="Button" parent="."]
+visible = false
+offset_left = 528.0
+offset_top = 502.0
+offset_right = 616.0
+offset_bottom = 550.0
+theme = ExtResource("2_noytc")
+theme_override_font_sizes/font_size = 20
+text = "Unequip"
+
+[connection signal="pressed" from="Close" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Use" to="." method="_on_use_pressed"]
+[connection signal="pressed" from="Unequip" to="." method="_on_unequip_pressed"]

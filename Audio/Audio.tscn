@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cquxy6n2a6601"]
+
+[ext_resource type="Script" path="res://Audio/Audio.gd" id="1_kl31x"]
+[ext_resource type="AudioStream" uid="uid://dm30gt1cjfk51" path="res://Audio/music/Loop_Market_Day.wav" id="3_5p15n"]
+
+[node name="MusicManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_kl31x")
+
+[node name="LevelBGM" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="TitleBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5p15n")
+bus = &"Music"
+
+[connection signal="finished" from="LevelBGM" to="." method="_on_level_bgm_finished"]

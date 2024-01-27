@@ -1,0 +1,6 @@
+res://Menu/title_screen.tscn
+res://Mesh_Libraries/Floor_Library.tres
+res://Mesh_Libraries/Walls_Library.tres
+res://Mesh_Libraries/Misc_Library.tres
+res://Scenes/Dungeon.tres
+res://Inventory/GUI/BG.tres

@@ -1,0 +1,357 @@
+[gd_scene load_steps=25 format=3 uid="uid://drionww2gsuh5"]
+
+[ext_resource type="Script" path="res://Inventory/UI.gd" id="1_3jj1r"]
+[ext_resource type="Theme" uid="uid://dfgnx6so8jd63" path="res://Inventory/GUI/BG.tres" id="2_7fmah"]
+[ext_resource type="Script" path="res://Inventory/InvContainer.gd" id="2_kd12e"]
+[ext_resource type="PackedScene" uid="uid://dllo870n5y883" path="res://Inventory/ItemInfo.tscn" id="3_2bl18"]
+[ext_resource type="Script" path="res://Inventory/Equip/Equip.gd" id="4_sqyp3"]
+[ext_resource type="Texture2D" uid="uid://bro5cd7juelwo" path="res://Inventory/Icons/Iron_Shield.png" id="4_toore"]
+[ext_resource type="Theme" uid="uid://b8dcwmeof1qym" path="res://Inventory/GUI/Head.tres" id="5_1p0cm"]
+[ext_resource type="Theme" uid="uid://cq6ifbwb3hdpc" path="res://Inventory/GUI/RightHand.tres" id="8_i6fph"]
+[ext_resource type="Theme" uid="uid://c4roqelsu5rn5" path="res://Inventory/GUI/Chest.tres" id="8_lkgpb"]
+[ext_resource type="Theme" uid="uid://ckx0alrt2j58i" path="res://Inventory/GUI/LeftHand.tres" id="9_mal2v"]
+[ext_resource type="Theme" uid="uid://ctcckv6d6y57s" path="res://Inventory/GUI/Legs.tres" id="11_ho0t8"]
+[ext_resource type="Theme" uid="uid://l0lsa114drf6" path="res://Inventory/GUI/Feet.tres" id="12_uj5xc"]
+[ext_resource type="AudioStream" uid="uid://cnxhtb6ctyyra" path="res://Audio/sfx/bag_1.wav" id="13_i2lpn"]
+[ext_resource type="AudioStream" uid="uid://ccwg2uw0l1xd6" path="res://Audio/sfx/bag_2.wav" id="14_pyy04"]
+[ext_resource type="AudioStream" uid="uid://bnpmr7mnqsshy" path="res://Audio/sfx/chainmail1.wav" id="15_4q4xm"]
+[ext_resource type="Theme" uid="uid://dk4iedv5sh2gp" path="res://Inventory/GUI/Slot.tres" id="16_0gas8"]
+
+[sub_resource type="GDScript" id="GDScript_ijgf0"]
+script/source = "extends Label
+
+func _ready():
+	pass
+
+func _process(_delta):
+	text = \"Armor: \" + str(Game.headArmor + Game.bodyArmor + Game.leftHandArmor)
+"
+
+[sub_resource type="GDScript" id="GDScript_nui48"]
+script/source = "extends Label
+
+func _ready():
+	pass
+
+func _process(_delta):
+	text = \"Attack: \" + str(Game.attack)
+"
+
+[sub_resource type="Animation" id="Animation_qy2be"]
+resource_name = "TransIn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inventory:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -650), Vector2(0, 0)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.220055,
+"start_offset": 0.026836,
+"stream": ExtResource("13_i2lpn")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_35sdl"]
+resource_name = "TransOut"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inventory:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -650)]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.205743,
+"start_offset": 0.0322032,
+"stream": ExtResource("14_pyy04")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ruj63"]
+_data = {
+"TransIn": SubResource("Animation_qy2be"),
+"TransOut": SubResource("Animation_35sdl")
+}
+
+[sub_resource type="GDScript" id="GDScript_qcg8c"]
+script/source = "extends ProgressBar
+
+func _ready():
+	self.max_value = Game.maxHealth
+
+func _process(_delta):
+	value = Game.health
+"
+
+[sub_resource type="GDScript" id="GDScript_nbd1f"]
+script/source = "extends Label
+
+func _ready():
+	pass # Replace with function body.
+
+func _process(_delta):
+	text = str(Game.health) + \" / \" + str(Game.maxHealth)
+"
+
+[sub_resource type="GDScript" id="GDScript_kfrfc"]
+script/source = "extends Label
+
+func _ready():
+	pass
+
+func _process(_delta):
+	text = \"Gold: \" + str(Game.Gold)
+"
+
+[node name="UI" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_3jj1r")
+
+[node name="Inventory" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -650.0
+offset_right = 40.0
+offset_bottom = -610.0
+
+[node name="BG" type="Panel" parent="Inventory"]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 66.0
+offset_right = 1152.0
+offset_bottom = 578.0
+theme = ExtResource("2_7fmah")
+
+[node name="Title" type="Label" parent="Inventory"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 66.0
+offset_right = 896.0
+offset_bottom = 154.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 60
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Armor" type="Label" parent="Inventory"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 90.0
+offset_right = 280.0
+offset_bottom = 138.0
+theme = ExtResource("2_7fmah")
+theme_override_font_sizes/font_size = 25
+text = "Armor: "
+vertical_alignment = 1
+script = SubResource("GDScript_ijgf0")
+
+[node name="Attack" type="Label" parent="Inventory"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 154.0
+offset_right = 280.0
+offset_bottom = 200.0
+theme = ExtResource("2_7fmah")
+theme_override_font_sizes/font_size = 25
+text = "Attack: "
+script = SubResource("GDScript_nui48")
+
+[node name="Close" type="Button" parent="Inventory"]
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 74.0
+offset_right = 1144.0
+offset_bottom = 122.0
+theme = ExtResource("2_7fmah")
+theme_override_font_sizes/font_size = 22
+text = "Close"
+
+[node name="InvContainer" type="GridContainer" parent="Inventory"]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 192.0
+offset_right = 984.0
+offset_bottom = 512.0
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 6
+script = ExtResource("2_kd12e")
+
+[node name="ItemInfo" parent="Inventory" instance=ExtResource("3_2bl18")]
+
+[node name="Equip" type="Node2D" parent="Inventory"]
+position = Vector2(64, 2)
+
+[node name="Head" type="Panel" parent="Inventory/Equip"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 256.0
+offset_top = 202.0
+offset_right = 320.0
+offset_bottom = 266.0
+theme = ExtResource("5_1p0cm")
+script = ExtResource("4_sqyp3")
+
+[node name="Icon" type="Sprite2D" parent="Inventory/Equip/Head"]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("4_toore")
+
+[node name="RightHand" type="Panel" parent="Inventory/Equip"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 168.0
+offset_top = 282.0
+offset_right = 232.0
+offset_bottom = 346.0
+theme = ExtResource("8_i6fph")
+script = ExtResource("4_sqyp3")
+
+[node name="Icon" type="Sprite2D" parent="Inventory/Equip/RightHand"]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("4_toore")
+
+[node name="LeftHand" type="Panel" parent="Inventory/Equip"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 344.0
+offset_top = 282.0
+offset_right = 408.0
+offset_bottom = 346.0
+theme = ExtResource("9_mal2v")
+script = ExtResource("4_sqyp3")
+
+[node name="Icon" type="Sprite2D" parent="Inventory/Equip/LeftHand"]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("4_toore")
+
+[node name="Chest" type="Panel" parent="Inventory/Equip"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 256.0
+offset_top = 282.0
+offset_right = 320.0
+offset_bottom = 346.0
+theme = ExtResource("8_lkgpb")
+script = ExtResource("4_sqyp3")
+
+[node name="Icon" type="Sprite2D" parent="Inventory/Equip/Chest"]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("4_toore")
+
+[node name="Legs" type="Panel" parent="Inventory/Equip"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 256.0
+offset_top = 362.0
+offset_right = 320.0
+offset_bottom = 426.0
+theme = ExtResource("11_ho0t8")
+script = ExtResource("4_sqyp3")
+
+[node name="Icon" type="Sprite2D" parent="Inventory/Equip/Legs"]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("4_toore")
+
+[node name="Feet" type="Panel" parent="Inventory/Equip"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 256.0
+offset_top = 442.0
+offset_right = 320.0
+offset_bottom = 506.0
+theme = ExtResource("12_uj5xc")
+script = ExtResource("4_sqyp3")
+
+[node name="Icon" type="Sprite2D" parent="Inventory/Equip/Feet"]
+position = Vector2(32, 32)
+scale = Vector2(2, 2)
+texture = ExtResource("4_toore")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ruj63")
+}
+
+[node name="HpBar" type="ProgressBar" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 168.0
+offset_bottom = 50.0
+theme = ExtResource("2_7fmah")
+value = 100.0
+show_percentage = false
+script = SubResource("GDScript_qcg8c")
+
+[node name="HP" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 168.0
+offset_bottom = 48.0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_nbd1f")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_4q4xm")
+bus = &"SFX"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 18.0
+offset_top = 56.0
+offset_right = 104.0
+offset_bottom = 90.0
+
+[node name="Gold" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("16_0gas8")
+text = "Gold:"
+vertical_alignment = 1
+script = SubResource("GDScript_kfrfc")
+
+[connection signal="pressed" from="Inventory/Close" to="." method="_on_close_pressed"]
+[connection signal="mouse_entered" from="Inventory/Equip/Head" to="Inventory/Equip/Head" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Equip/Head" to="Inventory/Equip/Head" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/Equip/RightHand" to="Inventory/Equip/RightHand" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Equip/RightHand" to="Inventory/Equip/RightHand" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/Equip/LeftHand" to="Inventory/Equip/LeftHand" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Equip/LeftHand" to="Inventory/Equip/LeftHand" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/Equip/Chest" to="Inventory/Equip/Chest" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Equip/Chest" to="Inventory/Equip/Chest" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/Equip/Legs" to="Inventory/Equip/Legs" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Equip/Legs" to="Inventory/Equip/Legs" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Inventory/Equip/Feet" to="Inventory/Equip/Feet" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Inventory/Equip/Feet" to="Inventory/Equip/Feet" method="_on_mouse_exited"]

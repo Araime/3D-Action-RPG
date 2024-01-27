@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://xgvhaun2ob13"
+path="res://.godot/imported/Action 4.wav-665d8a80f4a964a6f20941216cac5cf4.sample"
+
+[deps]
+
+source_file="res://Audio/music/Action 4.wav"
+dest_files=["res://.godot/imported/Action 4.wav-665d8a80f4a964a6f20941216cac5cf4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
