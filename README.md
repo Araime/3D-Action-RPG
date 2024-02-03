@@ -30,13 +30,13 @@ https://github.com/Araime/3D-Action-RPG/assets/82653875/4e900646-4f68-4ea9-abec-
 
 ### Скачать релиз для Windows(Beta)
 
-Можно скачать 2 файла по [ссылке](https://github.com/Araime/3D-Action-RPG/releases).
+Можно скачать 2 файла по [ссылке](https://github.com/Araime/Skeleton-Journey/releases).
 
 ### Скачать исходный код
 
 Godot 4.1.1 должен быть уже установлен. Так же подойдет Godot другой версии, не ниже 4.
 
-[Скачать](https://github.com/Araime/3D-Action-RPG/archive/master.zip) этот репозиторий на ваш компьютер,
+[Скачать](https://github.com/Araime/Skeleton-Journey/archive/master.zip) этот репозиторий на ваш компьютер,
 открыть проект в движке.  
 Репозиторий включает все необходимые ресурсы.
 
